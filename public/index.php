@@ -70,11 +70,6 @@ function e(string $v): string
 
     <button type="submit">Send</button>
   </form>
-  <form method="post" action="index.php">
-    <label>Name <input type="text" name="name"></label><br>
-    <label>Email <input type="email" name="email"></label><br>
-    <label>Message <textarea name="message"></textarea></label><br>
-    <button type="submit">Send</button>
-  </form>
+ 
 </body>
 </html>
