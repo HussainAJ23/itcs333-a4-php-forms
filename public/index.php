@@ -13,7 +13,42 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../src/validate.php';
 
-// TODO: implement the form handling here.
+$name = '';
+$email = '';
+$message = '';
+$errors = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = trim((string) ($_POST['name'] ?? ''));
+    $email = trim((string) ($_POST['email'] ?? ''));
+    $message = trim((string) ($_POST['message'] ?? ''));
+
+    if (!validate_required($name)) {
+        $errors['name'] = 'Name is required.';
+    } elseif (!validate_length($name, 2, 60)) {
+        $errors['name'] = 'Name must be 2-60 characters.';
+    }
+
+    if (!validate_email($email)) {
+        $errors['email'] = 'Email is invalid.';
+    }
+
+    if (!validate_required($message)) {
+        $errors['message'] = 'Message is required.';
+    } elseif (!validate_length($message, 10, 1000)) {
+        $errors['message'] = 'Message must be 10-1000 characters.';
+    }
+
+    if (empty($errors)) {
+        header('Location: success.php', true, 303);
+        exit;
+    }
+}
+
+function e(string $v): string
+{
+    return htmlspecialchars($v, ENT_QUOTES, 'UTF-8');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
