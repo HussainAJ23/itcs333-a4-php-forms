@@ -58,7 +58,18 @@ function e(string $v): string
 </head>
 <body>
   <h1>Contact Us</h1>
-  <!-- TODO: render the form, inline errors, and repopulated values -->
+  <form method="post" action="index.php">
+    <label>Name <input type="text" name="name" value="<?= e($name) ?>"></label>
+    <?php if (isset($errors['name'])): ?><span class="error"><?= e($errors['name']) ?></span><?php endif; ?><br>
+
+    <label>Email <input type="email" name="email" value="<?= e($email) ?>"></label>
+    <?php if (isset($errors['email'])): ?><span class="error"><?= e($errors['email']) ?></span><?php endif; ?><br>
+
+    <label>Message <textarea name="message"><?= e($message) ?></textarea></label>
+    <?php if (isset($errors['message'])): ?><span class="error"><?= e($errors['message']) ?></span><?php endif; ?><br>
+
+    <button type="submit">Send</button>
+  </form>
   <form method="post" action="index.php">
     <label>Name <input type="text" name="name"></label><br>
     <label>Email <input type="email" name="email"></label><br>
